@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#7a1f2b">
+<meta name="mobile-web-app-capable" content="yes">
+<title>रंग मंदिर – महाप्रसाद हिसाब</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Noto+Sans+Gujarati:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --maroon:#771d2b;--maroon-dark:#4d111b;--saffron:#d97706;
+    --sand:#f7f1e7;--ink:#2f2421;--line:#eadfcf;--surface:#fff;
+    --green:#16805a;--red:#bc4b32;--purple:#7047a4;--teal:#147a82;
+  }
+  *{box-sizing:border-box}
+  body{
+    font-family:'Mukta','Noto Sans Gujarati',system-ui,-apple-system,sans-serif;
+    background:
+      radial-gradient(circle at 12% 8%,rgba(217,119,6,.055),transparent 18rem),
+      linear-gradient(135deg,rgba(119,29,43,.025) 25%,transparent 25%) 0 0/24px 24px,
+      var(--sand);
+    color:var(--ink);font-size:1.05rem;letter-spacing:.01em
+  }
+  .container{max-width:1180px}
+  /* Header */
+  .hero{
+    position:relative;overflow:hidden;
+    background:linear-gradient(118deg,var(--maroon-dark),var(--maroon) 58%,#a9501e);
+    color:#fff;padding:1.25rem 0 1.15rem;
+    box-shadow:0 8px 24px rgba(77,17,27,.16)
+  }
+  .hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid rgba(255,255,255,.07);border-radius:50%;right:-90px;top:-185px}
+  .hero h1{font-size:1.75rem;font-weight:700;margin:0;letter-spacing:.01em}
+  .hero p{margin:.18rem 0 0;color:rgba(255,255,255,.78);font-size:.98rem}
+  .hero-sub{margin-left:52px!important}
+  .hero-mark{
+    width:42px;height:42px;flex:0 0 42px;border-radius:50%;
+    display:inline-grid;place-items:center;color:#ffd88a;
+    background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.16)
+  }
+  .hero-title{display:flex;align-items:center;gap:.7rem}
+  .toran{
+    height:7px;
+    background:linear-gradient(90deg,#e6b84a 0 12.5%,#c75332 12.5% 25%,#e6b84a 25% 37.5%,#c75332 37.5% 50%,#e6b84a 50% 62.5%,#c75332 62.5% 75%,#e6b84a 75% 87.5%,#c75332 87.5%);
+    box-shadow:0 2px 8px rgba(119,29,43,.08)
+  }
+  .lang select{
+    background-color:#fff;font-weight:700;color:var(--maroon);
+    border:1px solid rgba(255,255,255,.9);border-radius:10px;
+    width:164px;height:46px;padding:.45rem 2.55rem .45rem .95rem;
+    box-shadow:0 5px 14px rgba(77,17,27,.14);
+    cursor:pointer;appearance:none;-webkit-appearance:none;
+    background-image:none
+  }
+  .lang{position:relative;display:inline-flex;align-items:center;line-height:1}
+  .lang-chevron{
+    position:absolute;right:15px;top:50%;transform:translateY(-50%);
+    color:var(--maroon);font-size:.76rem;pointer-events:none
+  }
+  .lang select:hover{border-color:#e2c29a}
+  .lang select:focus{border-color:#f0c47e;outline:0;box-shadow:0 0 0 .2rem rgba(255,216,138,.25)}
+  /* Ledger toolbar */
+  .s0{--c:var(--maroon)}
+  .s0 .sec-body{padding:.85rem 1rem}
+  .s0 .form-label{margin-bottom:.35rem;font-size:.9rem}
+  .btn-lg{height:46px;border-radius:10px}
+  /* Summary cards */
+  .stat{
+    border:0;border-radius:16px;color:#fff;padding:1.05rem 1.15rem;height:100%;
+    box-shadow:0 10px 24px rgba(55,43,35,.11);position:relative;overflow:hidden
+  }
+  .stat-inner{display:flex;align-items:center;justify-content:space-between;gap:.8rem;min-height:62px}
+  .stat-icon{
+    width:42px;height:42px;flex:0 0 42px;border-radius:12px;
+    display:grid;place-items:center;background:rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.12);font-size:1.05rem
+  }
+  .stat:after{content:"";position:absolute;width:80px;height:80px;border:1px solid rgba(255,255,255,.13);border-radius:50%;right:-30px;bottom:-38px}
+  .stat small{display:block;opacity:.82;font-size:.86rem;margin-bottom:.15rem}
+  .stat b{font-size:1.65rem;font-weight:700}
+  .c-don{background:linear-gradient(135deg,#126d4b,#25a273)}
+  .c-exp{background:linear-gradient(135deg,#a43d2b,#d66a4d)}
+  .c-bh{background:linear-gradient(135deg,#57358a,#8060b3)}
+  .c-bal{background:linear-gradient(135deg,#176d73,#369aa1)}
+  .c-bal.neg{background:linear-gradient(135deg,#92172a,#c53a4c)}
+  /* Sections */
+  .sec{
+    background:var(--surface);border-radius:16px;margin-bottom:1.25rem;overflow:hidden;
+    box-shadow:0 7px 20px rgba(68,54,43,.075);border:1px solid rgba(224,211,192,.78)
+  }
+  .s1{--c:#771d2b;--c2:#9d3d36}.s2{--c:#156b4c;--c2:#2f9270}
+  .s3{--c:#9a4c22;--c2:#d18432}.s4{--c:#60408b;--c2:#8562ac}
+  .s5{--c:#176d73;--c2:#278f95}
+  .sec-head{
+    background:linear-gradient(90deg,var(--c),var(--c2));color:#fff;
+    padding:.82rem 1.15rem;display:flex;justify-content:space-between;align-items:center;
+    gap:.75rem;flex-wrap:wrap;border-bottom:1px solid rgba(255,255,255,.12)
+  }
+  .sec-head h2{font-size:1.12rem;font-weight:700;margin:0}
+  .sec-head h2 i{margin-right:.45rem;opacity:.92}
+  .sec-head .btn{
+    font-weight:700;color:var(--c);border:0;border-radius:9px;
+    background:#fff;padding:.42rem .75rem;box-shadow:0 3px 8px rgba(0,0,0,.08)
+  }
+  .sec-body{padding:1.1rem 1.15rem}
+  .sec h3{font-size:1.04rem;font-weight:700;color:var(--c);margin:1.15rem 0 .55rem}
+  .form-label{color:#4b3a35}
+  .form-control,.form-select{
+    border:1px solid #ded3c3;border-radius:9px;color:#302724;
+    background:#fffefb;min-height:42px
+  }
+  .form-control:focus,.form-select:focus{
+    border-color:var(--c,var(--saffron));box-shadow:0 0 0 .19rem rgba(217,119,6,.13);
+    background:#fff
+  }
+  .table{margin-bottom:0;--bs-table-border-color:#e8dfd2}
+  .table thead th{
+    background:#f7f2ea;color:#54443d;font-weight:700;border-bottom:2px solid var(--c)!important;
+    vertical-align:middle;font-size:.88rem
+  }
+  .table td{vertical-align:middle;border-color:#ede5da}
+  .table tfoot td{background:#fbf5e9;font-weight:700}
+  .table tbody tr{transition:background .15s}
+  .table tbody tr:hover{background:#fffdf8}
+  .big{font-size:1.35rem;font-weight:700}
+  .cnt{font-weight:700;text-align:center;white-space:nowrap}
+  .btn-main{
+    background:var(--saffron);border-color:var(--saffron);color:#fff;font-weight:700;
+    border-radius:10px;box-shadow:0 5px 12px rgba(217,119,6,.16)
+  }
+  .btn-main:hover{background:#bd6506;border-color:#bd6506;color:#fff;transform:translateY(-1px)}
+  .btn-outline-danger,.btn-outline-secondary,.btn-outline-dark{border-radius:9px}
+  .action-icon{margin-right:.35rem}
+  #summary{line-height:1.9;white-space:pre-line;color:#493934}
+  .foot{text-align:center;color:#907d72;font-size:.88rem;padding:0 0 2.2rem}
+  .thumb{width:54px;height:54px;object-fit:cover;border-radius:8px;border:1px solid #d8caba;cursor:pointer}
+  .ph-view{display:flex;align-items:center;gap:.45rem;flex-wrap:wrap;margin-top:.4rem}
+  .ph-item{display:inline-flex;align-items:flex-start;gap:.2rem}
+  #printReceipts{display:none}
+  #lightbox{
+    position:fixed;inset:0;background:rgba(25,18,16,.91);z-index:2000;
+    display:none;align-items:center;justify-content:center;padding:1rem;backdrop-filter:blur(4px)
+  }
+  #lightbox.on{display:flex}
+  #lightbox .in{max-width:100%;max-height:100%;text-align:center;color:#fff}
+  #lightbox img{max-width:100%;max-height:78vh;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.35)}
+  #lbNote{margin:.8rem 0;white-space:pre-line}
+  @media(max-width:768px){
+    body{font-size:1rem}
+    .hero{padding:1rem 0}
+    .hero .container{align-items:center}
+    .rt thead{display:none}
+    .rt,.rt tbody,.rt tfoot{display:block;width:100%}
+    .rt tbody tr{
+      display:block;border:1px solid #e5dac8;border-radius:12px;margin-bottom:.75rem;
+      padding:.35rem .7rem;background:#fff;box-shadow:0 3px 10px rgba(68,54,43,.04)
+    }
+    .rt tbody td{display:flex;align-items:center;gap:.6rem;border:0!important;padding:.32rem 0!important;background:transparent}
+    .rt tbody td::before{content:attr(data-label);flex:0 0 38%;font-weight:700;color:var(--c);font-size:.86rem}
+    .rt tbody td:not([data-label])::before{display:none}
+    .rt tbody td .form-control,.rt tbody td .form-select,.rt tbody td .ph-view{flex:1;min-width:0}
+    .rt tbody td.sn{font-weight:700;color:var(--c)}
+    .rt tbody td.sn::before{display:inline;content:"#";flex:0 0 auto}
+    .rt tbody td.dl{justify-content:flex-end}
+    .rt tfoot tr{display:flex;justify-content:space-between;align-items:center;background:#fbf5e9;border-radius:9px;padding:.55rem .75rem}
+    .rt tfoot td{display:block;border:0;background:transparent;padding:0}
+    .rt tfoot td.no-print{display:none}
+  }
+  @media(max-width:576px){
+    .hero h1{font-size:1.28rem}
+    .hero p{font-size:.86rem}
+    .hero-mark{width:38px;height:38px;flex-basis:38px}
+    .hero-sub{margin-left:46px!important}
+    .hero .container{gap:.65rem!important}
+    .lang{width:100%;display:flex;justify-content:flex-end}
+    .lang select{width:150px;min-width:150px;height:44px}
+    .lang-chevron{right:14px}
+    .sec-body{padding:.9rem}
+    .sec-head{padding:.72rem .9rem}
+    .stat{padding:.85rem;border-radius:13px}
+    .stat small{font-size:.78rem;min-height:2.25em}
+    .stat b{font-size:1.28rem}
+    .btn-lg{width:100%}
+  }
+  @media print{
+    @page{size:A4 portrait;margin:12mm}
+    .no-print{display:none!important}body{background:#fff}.sec{break-inside:avoid;box-shadow:none}
+    *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    input,select{border:none!important;background:transparent!important;padding:0!important;appearance:none}
+    #expTable th:nth-child(5),#expTable td:nth-child(5){display:none!important}
+    #printReceipts{display:block!important}
+    .receipt-print-page{
+      box-sizing:border-box;height:273mm;display:flex;flex-direction:column;align-items:stretch;
+      break-before:page;page-break-before:always;break-after:page;page-break-after:always;
+      overflow:hidden;color:#211b18
+    }
+    .receipt-print-page:last-child{break-after:auto;page-break-after:auto}
+    .receipt-print-heading{padding:0 0 7mm;border-bottom:1px solid #cfc5b9;margin-bottom:7mm}
+    .receipt-print-heading h1{font-size:18pt;font-weight:700;margin:0 0 2mm}
+    .receipt-print-heading p{font-size:10pt;margin:0;color:#50453e}
+    .receipt-print-image{display:block;width:100%;max-height:238mm;flex:1 1 auto;min-height:0;object-fit:contain}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-3">
+    <div>
+      <div class="hero-title">
+        <span class="hero-mark" aria-hidden="true"><i class="fa-solid fa-dharmachakra"></i></span>
+        <h1><span data-i18n="appTitle"></span></h1>
+      </div>
+      <p class="hero-sub" data-i18n="appSub"></p>
+    </div>
+    <div class="lang no-print">
+      <select id="langSel" class="form-select" aria-label="Language">
+        <option value="hi">हिन्दी</option><option value="gu">ગુજરાતી</option><option value="en">English</option>
+      </select>
+      <i class="fa-solid fa-chevron-down lang-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+</header>
+<div class="toran"></div>
+
+<main class="container my-4">
+
+  <section class="sec s0 no-print">
+    <div class="sec-body d-flex flex-wrap gap-2 align-items-end">
+      <div class="flex-grow-1" style="min-width:220px">
+        <label class="form-label fw-semibold" data-i18n="ledgerLbl"></label>
+        <select id="ledgerSel" class="form-select form-select-lg"></select>
+      </div>
+      <button id="newLedger" class="btn btn-main btn-lg"><i class="fa-solid fa-plus action-icon"></i><span data-i18n="newLedger"></span></button>
+      <button id="delLedger" class="btn btn-outline-danger btn-lg"><i class="fa-solid fa-trash-can action-icon"></i><span data-i18n="delLedger"></span></button>
+    </div>
+  </section>
+
+  <!-- 1 -->
+  <section class="sec s1">
+    <div class="sec-head"><h2><i class="fa-solid fa-calendar-check"></i><span data-i18n="s1"></span></h2></div>
+    <div class="sec-body"><div class="row g-3">
+      <div class="col-md-6"><label class="form-label fw-semibold" data-i18n="fnName"></label>
+        <input id="fnName" class="form-control form-control-lg" data-ph="fnNamePh"></div>
+      <div class="col-md-3 col-6"><label class="form-label fw-semibold" data-i18n="fnDate"></label>
+        <input id="fnDate" type="date" class="form-control form-control-lg"></div>
+      <div class="col-md-3 col-6"><label class="form-label fw-semibold" data-i18n="fnDay"></label>
+        <input id="fnDay" class="form-control form-control-lg" readonly data-ph="auto"></div>
+    </div></div>
+  </section>
+
+  <!-- cards -->
+  <section class="row g-3 mb-4">
+    <div class="col-md-3 col-6"><div class="stat c-don"><div class="stat-inner"><div><small data-i18n="cDon"></small><b>₹ <span id="tDonation">0</span></b></div><span class="stat-icon"><i class="fa-solid fa-hand-holding-dollar"></i></span></div></div></div>
+    <div class="col-md-3 col-6"><div class="stat c-exp"><div class="stat-inner"><div><small data-i18n="cExp"></small><b>₹ <span id="tExpense">0</span></b></div><span class="stat-icon"><i class="fa-solid fa-receipt"></i></span></div></div></div>
+    <div class="col-md-3 col-6"><div class="stat c-bh"><div class="stat-inner"><div><small data-i18n="cBh"></small><b>₹ <span id="tBhandara">0</span></b></div><span class="stat-icon"><i class="fa-solid fa-box-open"></i></span></div></div></div>
+    <div class="col-md-3 col-6"><div class="stat c-bal" id="balCard"><div class="stat-inner"><div><small data-i18n="cBal"></small><b>₹ <span id="tBalance">0</span></b></div><span class="stat-icon"><i class="fa-solid fa-scale-balanced"></i></span></div></div></div>
+  </section>
+
+  <!-- 2 -->
+  <section class="sec s2">
+    <div class="sec-head"><h2><i class="fa-solid fa-book-open"></i><span data-i18n="s2"></span></h2>
+      <button class="btn btn-light btn-sm no-print" id="addBill"><i class="fa-solid fa-plus action-icon"></i><span data-i18n="addBill"></span></button></div>
+    <div class="sec-body">
+      <div class="row"><div class="col-md-5">
+        <label class="form-label fw-semibold" data-i18n="donLbl"></label>
+        <input id="donation" type="number" min="0" class="form-control form-control-lg big" data-ph="eg" data-ph-s="25000">
+      </div></div>
+      <h3 data-i18n="billH"></h3>
+      <p class="text-muted small mb-2" data-i18n="billHint"></p>
+      <div class="table-responsive"><table class="table table-bordered rt" id="billTable">
+        <thead><tr>
+          <th style="width:50px" data-i18n="thSn"></th>
+          <th style="min-width:130px" data-i18n="thBook"></th>
+          <th style="min-width:130px" data-i18n="thFrom"></th>
+          <th style="min-width:130px" data-i18n="thTo"></th>
+          <th style="width:110px" data-i18n="thCnt"></th>
+          <th class="no-print" style="width:60px"></th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot><tr class="fw-bold"><td colspan="4" class="text-end" data-i18n="billSum"></td>
+          <td class="cnt" id="billSum">0</td><td class="no-print"></td></tr></tfoot>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="sec s3">
+    <div class="sec-head"><h2><i class="fa-solid fa-wallet"></i><span data-i18n="s3"></span></h2>
+      <button class="btn btn-light btn-sm no-print" id="addExp"><i class="fa-solid fa-plus action-icon"></i><span data-i18n="addExp"></span></button></div>
+    <div class="sec-body">
+      <div class="table-responsive"><table class="table table-bordered rt" id="expTable">
+        <thead><tr>
+          <th style="width:50px" data-i18n="thSn"></th>
+          <th style="min-width:220px" data-i18n="thExp"></th>
+          <th style="min-width:130px" data-i18n="thAmt"></th>
+          <th style="min-width:200px" data-i18n="thNote"></th>
+          <th style="min-width:150px" data-i18n="thPhoto"></th>
+          <th class="no-print" style="width:60px"></th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot><tr class="fw-bold"><td colspan="2" class="text-end" data-i18n="cExp"></td>
+          <td colspan="4" class="big">₹ <span id="expSum">0</span></td></tr></tfoot>
+      </table></div>
+      <datalist id="expNames"></datalist>
+
+      <h3 data-i18n="howH"></h3>
+      <table class="table table-bordered w-auto mb-0"><tbody>
+        <tr><td class="pe-5" data-i18n="cExp"></td><td class="fw-bold">₹ <span id="sExp">0</span></td></tr>
+        <tr><td class="pe-5" data-i18n="fromBh"></td><td class="fw-bold">₹ <span id="sBhan">0</span></td></tr>
+        <tr><td class="pe-5" data-i18n="fromBill" style="background:#fff3d6"></td><td class="fw-bold" style="background:#fff3d6">₹ <span id="sBill">0</span></td></tr>
+        <tr id="extraRow" style="display:none"><td class="pe-5" data-i18n="extraL"></td><td class="fw-bold">₹ <span id="sExtra">0</span></td></tr>
+      </tbody></table>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="sec s4">
+    <div class="sec-head"><h2><i class="fa-solid fa-gift"></i><span data-i18n="s4"></span></h2>
+      <button class="btn btn-light btn-sm no-print" id="addKind"><i class="fa-solid fa-plus action-icon"></i><span data-i18n="addKind"></span></button></div>
+    <div class="sec-body">
+      <p class="text-muted small mb-2" data-i18n="kindHint"></p>
+      <div class="table-responsive"><table class="table table-bordered rt" id="kindTable">
+        <thead><tr>
+          <th style="width:50px" data-i18n="thSn"></th>
+          <th style="min-width:170px" data-i18n="thDonor"></th>
+          <th style="min-width:170px" data-i18n="thWhat"></th>
+          <th style="width:130px" data-i18n="thType"></th>
+          <th style="min-width:150px" data-i18n="thQty"></th>
+          <th class="no-print" style="width:60px"></th>
+        </tr></thead>
+        <tbody></tbody>
+        <tfoot><tr class="fw-bold"><td colspan="4" class="text-end" data-i18n="kindSum"></td>
+          <td class="big">₹ <span id="kindSum">0</span></td><td class="no-print"></td></tr></tfoot>
+      </table></div>
+    </div>
+  </section>
+
+  <!-- summary -->
+  <section class="sec s5">
+    <div class="sec-head"><h2><i class="fa-solid fa-chart-pie"></i><span data-i18n="sumH"></span></h2></div>
+    <div class="sec-body"><div id="summary"></div></div>
+  </section>
+
+  <div class="d-flex gap-2 flex-wrap no-print mb-4">
+    <button class="btn btn-main btn-lg" id="saveBtn"><i class="fa-solid fa-floppy-disk action-icon"></i><span data-i18n="save"></span></button>
+    <button class="btn btn-outline-dark btn-lg" onclick="window.print()"><i class="fa-solid fa-print action-icon"></i><span data-i18n="print"></span></button>
+  </div>
+  <div class="foot">🙏 जय गुरुदेव दत्त</div>
+</main>
+
+<div id="lightbox" class="no-print"><div class="in"><img id="lbImg" alt=""><p id="lbNote"></p><button class="btn btn-light" id="lbClose" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></div></div>
+<section id="printReceipts" aria-hidden="true"></section>
+
+<script>window.indexedDB=null;window.__alerts=[];window.alert=function(m){window.__alerts.push(m);};</script><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script>
+$(function () {
+  var LKEY = 'rangMandirLang';
+
+  var T = {
+    hi:{appTitle:'रंग मंदिर – महाप्रसाद हिसाब',appSub:'दान, बिल बुक, खर्चा और भंडारा सामान का साफ रिकॉर्ड',
+      s1:'1. फंक्शन की जानकारी',fnName:'कौन सा फंक्शन है?',fnNamePh:'जैसे: रंग जयंती महाप्रसाद',fnDate:'कब हुआ? (तारीख)',fnDay:'दिन',auto:'अपने आप',
+      cDon:'बिल बुक का कुल दान',cExp:'कुल खर्चा',cBh:'भंडारा के पैसे',cBal:'बिल बुक में बचा बैलेंस',
+      s2:'2. दान (बिल बुक से)',addBill:'बिल बुक जोड़ें',donLbl:'कुल दान कितना हुआ? (₹)',eg:'जैसे: ',billH:'बिल बुक का रिकॉर्ड',
+      billHint:'हर बिल बुक में बिल नंबर कहाँ से शुरू हुआ और कहाँ तक चला, वह लिखें। नई बुक लेनी पड़े तो उसी नंबर की अलग लाइन जोड़ें।',
+      thSn:'क्र.',thBook:'बिल बुक नंबर',thFrom:'बिल नंबर से (शुरू)',thTo:'बिल नंबर तक (खत्म)',thCnt:'कुल बिल',billSum:'कुल बिल कटे',
+      s3:'3. खर्चा',addExp:'खर्चा जोड़ें',thExp:'किस चीज़ का खर्चा',thAmt:'राशि (₹)',phExp:'जैसे: सब्जी',
+      howH:'खर्चा कैसे पूरा हुआ',fromBh:'भंडारा के पैसों से दिया',fromBill:'बाकी खर्चा, बिल बुक के दान से लिया',extraL:'भंडारा के पैसे जो खर्चे से बच गए',
+      s4:'4. भंडारा / सामान दान (अलग हिसाब)',addKind:'सामान दान जोड़ें',
+      kindHint:'चावल, दाल, तेल, खांड जैसा सामान या उसके पैसे जो लोग देते हैं, उनका रिकॉर्ड यहाँ लिखें। "पैसे" वाली रकम भंडारा के पैसे बनकर खर्चे में लगेगी। "सामान" वाली एंट्री सिर्फ रिकॉर्ड के लिए है।',
+      thDonor:'दानदाता का नाम',thWhat:'क्या दिया / किस चीज़ के पैसे',thType:'प्रकार',typeItem:'सामान',typeMoney:'पैसे',thQty:'मात्रा / राशि',kindSum:'भंडारा के कुल पैसे',
+      phWhat:'जैसे: चावल / दाल',phQtyItem:'जैसे: 25 किलो',phQtyMoney:'राशि ₹',
+      sumH:'सारांश',save:'सेव करें',print:'प्रिंट / PDF',reset:'नया हिसाब शुरू करें',
+      saved:'हिसाब सेव हो गया ✔',saveFail:'इस ब्राउज़र में सेव नहीं हो सका. कृपया प्रिंट / PDF निकाल लें.',confirmReset:'पूरा हिसाब मिट जाएगा. नया शुरू करें?',
+      fnDefault:'फंक्शन',ledgerLbl:'पुराना हिसाब देखें / चुनें',newLedger:'नया हिसाब',delLedger:'यह हिसाब हटाएं',newOpt:'(नया हिसाब)',confirmDel:'यह हिसाब हमेशा के लिए हट जाएगा. हटाएं?',thNote:'विवरण (दुकान / बिल नोट)',thPhoto:'बिल फोटो',addPhoto:'फोटो जोड़ें',phNote:'जैसे: शर्मा किराना, बिल नं. 123',noName:'बिना नाम',
+      sum1:'{name}{dt} में बिल बुक से कुल ₹{don} दान आया. कुल खर्चा ₹{exp} हुआ.',
+      sum2:'भंडारा के पैसे ₹{kc} आए, जिनमें से ₹{fb} खर्चे में लगे. बाकी ₹{bill} खर्चा बिल बुक के दान से लिया.',
+      sum3:'भंडारा के ₹{extra} खर्चे से बच गए.',sumPos:'बिल बुक में बचा हुआ बैलेंस ₹{bal} है.',sumNeg:'बिल बुक के दान से ₹{bal} ज्यादा लगे (घाटा).',
+      sumBills:'बिल बुक से कुल {n} बिल कटे.',sumTop:'सबसे ज्यादा खर्चा "{name}" में हुआ: ₹{amt}.',sumKinds:'भंडारा / सामान दान के कुल {n} रिकॉर्ड दर्ज हैं.',
+      days:['रविवार','सोमवार','मंगलवार','बुधवार','गुरुवार','शुक्रवार','शनिवार'],
+      names:['सब्जी','रसोई बनाने वाले','मंडप','पानी की बोतल','बर्तन मांजने वाले','सब्जी काटने वाले','किराना','गैस','लाइट / साउंड','अन्य']},
+    gu:{appTitle:'રંગ મંદિર – મહાપ્રસાદ હિસાબ',appSub:'દાન, બિલ બુક, ખર્ચ અને ભંડારા સામાનનો સ્પષ્ટ રેકોર્ડ',
+      s1:'1. કાર્યક્રમની માહિતી',fnName:'કયો કાર્યક્રમ છે?',fnNamePh:'જેમ કે: રંગ જયંતી મહાપ્રસાદ',fnDate:'ક્યારે થયો? (તારીખ)',fnDay:'વાર',auto:'આપોઆપ',
+      cDon:'બિલ બુકનું કુલ દાન',cExp:'કુલ ખર્ચ',cBh:'ભંડારાના પૈસા',cBal:'બિલ બુકમાં બચેલું બેલેન્સ',
+      s2:'2. દાન (બિલ બુકમાંથી)',addBill:'બિલ બુક ઉમેરો',donLbl:'કુલ દાન કેટલું થયું? (₹)',eg:'જેમ કે: ',billH:'બિલ બુકનો રેકોર્ડ',
+      billHint:'દરેક બિલ બુકમાં બિલ નંબર ક્યાંથી શરૂ થયો અને ક્યાં સુધી ચાલ્યો તે લખો. નવી બુક લેવી પડે તો તે જ નંબરની અલગ લાઇન ઉમેરો.',
+      thSn:'ક્ર.',thBook:'બિલ બુક નંબર',thFrom:'બિલ નંબરથી (શરૂ)',thTo:'બિલ નંબર સુધી (પૂરું)',thCnt:'કુલ બિલ',billSum:'કુલ બિલ કપાયા',
+      s3:'3. ખર્ચ',addExp:'ખર્ચ ઉમેરો',thExp:'શેનો ખર્ચ',thAmt:'રકમ (₹)',phExp:'જેમ કે: શાકભાજી',
+      howH:'ખર્ચ કેવી રીતે પૂરો થયો',fromBh:'ભંડારાના પૈસામાંથી આપ્યું',fromBill:'બાકીનો ખર્ચ, બિલ બુકના દાનમાંથી લીધો',extraL:'ભંડારાના પૈસા જે ખર્ચમાંથી બચ્યા',
+      s4:'4. ભંડારા / સામાન दान (અલગ હિસાબ)',addKind:'સામાન દાન ઉમેરો',
+      kindHint:'ચોખા, દાળ, તેલ, ખાંડ જેવો સામાન અથવા તેના પૈસા જે લોકો આપે છે, તેનો રેકોર્ડ અહીં લખો. "પૈસા" વાળી રકમ ભંડારાના પૈસા બનીને ખર્ચમાં વપરાશે. "સામાન" વાળી એન્ટ્રી ફક્ત રેકોર્ડ માટે છે.',
+      thDonor:'દાતાનું નામ',thWhat:'શું આપ્યું / શેના પૈસા',thType:'પ્રકાર',typeItem:'સામાન',typeMoney:'પૈસા',thQty:'જથ્થો / રકમ',kindSum:'ભંડારાના કુલ પૈસા',
+      phWhat:'જેમ કે: ચોખા / દાળ',phQtyItem:'જેમ કે: 25 કિલો',phQtyMoney:'રકમ ₹',
+      sumH:'સારાંશ',save:'સેવ કરો',print:'પ્રિન્ટ / PDF',reset:'નવો હિસાબ શરૂ કરો',
+      saved:'હિસાબ સેવ થઈ ગયો ✔',saveFail:'આ બ્રાઉઝરમાં સેવ થઈ શક્યો નથી. કૃપા કરીને પ્રિન્ટ / PDF કાઢી લો.',confirmReset:'આખો હિસાબ ભૂંસાઈ જશે. નવો શરૂ કરવો છે?',
+      fnDefault:'કાર્યક્રમ',ledgerLbl:'જૂનો હિસાબ જુઓ / પસંદ કરો',newLedger:'નવો હિસાબ',delLedger:'આ હિસાબ કાઢી નાખો',newOpt:'(નવો હિસાબ)',confirmDel:'આ હિસાબ કાયમ માટે કાઢી નંખાશે. કાઢી નાખવો છે?',thNote:'વિવરણ (દુકાન / બિલ નોંધ)',thPhoto:'બિલ ફોટો',addPhoto:'ફોટો ઉમેરો',phNote:'જેમ કે: શર્મા કરિયાણા, બિલ નં. 123',noName:'નામ વગર',
+      sum1:'{name}{dt} માં બિલ બુકમાંથી કુલ ₹{don} દાન આવ્યું. કુલ ખર્ચ ₹{exp} થયો.',
+      sum2:'ભંડારાના પૈસા ₹{kc} આવ્યા, જેમાંથી ₹{fb} ખર્ચમાં વપરાયા. બાકીનો ₹{bill} ખર્ચ બિલ બુકના દાનમાંથી લીધો.',
+      sum3:'ભંડારાના ₹{extra} ખર્ચમાંથી બચ્યા.',sumPos:'બિલ બુકમાં બચેલું બેલેન્સ ₹{bal} છે.',sumNeg:'બિલ બુકના દાનમાંથી ₹{bal} વધુ વપરાયા (ખોટ).',
+      sumBills:'બિલ બુકમાંથી કુલ {n} બિલ કપાયા.',sumTop:'સૌથી વધુ ખર્ચ "{name}" માં થયો: ₹{amt}.',sumKinds:'ભંડારા / સામાન દાનના કુલ {n} રેકોર્ડ નોંધાયા છે.',
+      days:['રવિવાર','સોમવાર','મંગળવાર','બુધવાર','ગુરુવાર','શુક્રવાર','શનિવાર'],
+      names:['શાકભાજી','રસોઈ બનાવનાર','મંડપ','પાણીની બોટલ','વાસણ માંજનાર','શાક કાપનાર','કરિયાણું','ગેસ','લાઇટ / સાઉન્ડ','અન્ય']},
+    en:{appTitle:'Rang Mandir – Mahaprasad Ledger',appSub:'Clear record of donations, bill books, expenses and bhandara items',
+      s1:'1. Function details',fnName:'Which function is it?',fnNamePh:'e.g. Rang Jayanti Mahaprasad',fnDate:'When? (date)',fnDay:'Day',auto:'Auto',
+      cDon:'Total bill book donation',cExp:'Total expense',cBh:'Bhandara money',cBal:'Balance left in bill book',
+      s2:'2. Donations (from bill book)',addBill:'Add bill book',donLbl:'Total donation received (₹)',eg:'e.g. ',billH:'Bill book record',
+      billHint:'For each bill book, write where the bill numbers started and where they ended. If a new book with the same number is taken, add a separate line.',
+      thSn:'No.',thBook:'Bill book no.',thFrom:'Bill no. from (start)',thTo:'Bill no. to (end)',thCnt:'Bills',billSum:'Total bills issued',
+      s3:'3. Expenses',addExp:'Add expense',thExp:'Expense for',thAmt:'Amount (₹)',phExp:'e.g. Vegetables',
+      howH:'How the expense was covered',fromBh:'Paid from bhandara money',fromBill:'Remaining expense, taken from bill book',extraL:'Bhandara money left after expenses',
+      s4:'4. Bhandara / item donations (separate)',addKind:'Add item donation',
+      kindHint:'Record items such as rice, dal, oil, sugar, or money given for them. Entries of type "Money" count as bhandara money and go towards expenses. "Item" entries are for the record only.',
+      thDonor:'Donor name',thWhat:'What was given / money for',thType:'Type',typeItem:'Item',typeMoney:'Money',thQty:'Quantity / amount',kindSum:'Total bhandara money',
+      phWhat:'e.g. rice / dal',phQtyItem:'e.g. 25 kg',phQtyMoney:'Amount ₹',
+      sumH:'Summary',save:'Save',print:'Print / PDF',reset:'Start new ledger',
+      saved:'Ledger saved ✔',saveFail:'Could not save in this browser. Please take a Print / PDF.',confirmReset:'The whole ledger will be erased. Start new?',
+      fnDefault:'Function',ledgerLbl:'View / select earlier ledger',newLedger:'New ledger',delLedger:'Delete this ledger',newOpt:'(New ledger)',confirmDel:'This ledger will be deleted permanently. Delete?',thNote:'Description (shop / bill note)',thPhoto:'Bill photo',addPhoto:'Add photo',phNote:'e.g. Sharma Kirana, bill no. 123',noName:'Unnamed',
+      sum1:'{name}{dt}: ₹{don} received from the bill books. Total expense was ₹{exp}.',
+      sum2:'Bhandara money received: ₹{kc}, of which ₹{fb} went to expenses. The remaining ₹{bill} of expense was taken from the bill book donations.',
+      sum3:'₹{extra} of bhandara money was left after expenses.',sumPos:'Balance left in the bill book: ₹{bal}.',sumNeg:'₹{bal} more than the bill book donations was spent (deficit).',
+      sumBills:'{n} bills were issued from the bill books.',sumTop:'The highest expense was "{name}": ₹{amt}.',sumKinds:'{n} bhandara / item donation records are entered.',
+      days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      names:['Vegetables','Cooks','Mandap','Water bottles','Utensil washers','Vegetable cutters','Groceries','Gas','Light / sound','Other']}
+  };
+  var lang = 'hi';
+  try { lang = localStorage.getItem(LKEY) || 'hi'; } catch (e) {}
+  if (!T[lang]) lang = 'hi';
+
+  function t(k){ return T[lang][k]; }
+  function f(k, o){ return t(k).replace(/\{(\w+)\}/g, function(_, x){ return o[x]; }); }
+  function esc(v){ return String(v == null ? '' : v).replace(/"/g, '&quot;'); }
+  function num(v){ return parseFloat(v) || 0; }
+  function money(n){ return n.toLocaleString('en-IN'); }
+  function renumber(tb){ $(tb).find('tbody tr').each(function(i){ $(this).find('.sn').text(i + 1); }); }
+  var del = '<td class="no-print"><button class="btn btn-sm btn-outline-danger del" title="Delete" aria-label="Delete"><i class="fa-solid fa-xmark"></i></button></td>';
+
+  function applyLang(){
+    document.documentElement.lang = lang;
+    document.title = t('appTitle');
+    $('[data-i18n]').each(function(){ $(this).text(t($(this).data('i18n'))); });
+    $('[data-ph]').each(function(){ $(this).attr('placeholder', t($(this).data('ph')) + ($(this).data('ph-s') || '')); });
+    $('#expNames').html(T[lang].names.map(function(n){ return '<option value="'+esc(n)+'">'; }).join(''));
+    $('#langSel').val(lang);
+    $('.rt').each(function(){
+      var keys = $(this).find('thead th').map(function(){ return $(this).data('i18n') || ''; }).get();
+      $(this).find('tbody tr').each(function(){
+        $(this).children('td').each(function(i){ if (keys[i]) $(this).attr('data-label', t(keys[i])); }); }); });
+    dayFromDate(); calc(); if (db) refreshList();
+  }
+
+  function addBill(d){ d = d || {};
+    $('#billTable tbody').append('<tr><td class="sn"></td>' +
+      '<td><input type="number" min="1" class="form-control b-book" data-ph="eg" data-ph-s="8" value="'+esc(d.book)+'"></td>' +
+      '<td><input type="number" min="0" class="form-control b-from" data-ph="eg" data-ph-s="701" value="'+esc(d.from)+'"></td>' +
+      '<td><input type="number" min="0" class="form-control b-to" data-ph="eg" data-ph-s="750" value="'+esc(d.to)+'"></td>' +
+      '<td class="cnt b-cnt">–</td>' + del + '</tr>');
+    renumber('#billTable'); }
+  function setImgs(tr, urls){
+    urls = (urls || []).filter(function(url){ return typeof url === 'string' && url; });
+    tr.data('imgs', urls);
+    var view = tr.find('.ph-view').empty();
+    urls.forEach(function(url, index){
+      var item = $('<span class="ph-item"></span>');
+      item.append($('<img class="thumb" alt="Bill photo">').attr('src', url));
+      item.append($('<button type="button" class="btn btn-sm btn-outline-danger ph-del" aria-label="Delete photo"><i class="fa-solid fa-xmark"></i></button>').data('index', index));
+      view.append(item);
+    });
+    view.toggleClass('d-none', !urls.length);
+  }
+  function addExp(d){ d = d || {};
+    var tr = $('<tr><td class="sn"></td>' +
+      '<td><input list="expNames" class="form-control e-name" data-ph="phExp" value="'+esc(d.name)+'"></td>' +
+      '<td><input type="number" min="0" class="form-control e-amt" value="'+esc(d.amt)+'"></td>' +
+      '<td><input class="form-control e-note" data-ph="phNote" value="'+esc(d.note)+'"></td>' +
+      '<td><label class="btn btn-sm btn-outline-secondary ph-add mb-0"><i class="fa-solid fa-camera action-icon"></i><span data-i18n="addPhoto"></span><input type="file" accept="image/*" multiple class="d-none ph-file"></label>' +
+      '<span class="ph-view d-none"></span></td>' +
+      del + '</tr>');
+    tr.children('td:last').addClass('dl');
+    $('#expTable tbody').append(tr); setImgs(tr, Array.isArray(d.imgs) ? d.imgs : (d.img ? [d.img] : []));
+    renumber('#expTable'); }
+  function addKind(d){ d = d || {};
+    var m = d.type === 'money';
+    $('#kindTable tbody').append('<tr><td class="sn"></td>' +
+      '<td><input class="form-control k-name" value="'+esc(d.name)+'"></td>' +
+      '<td><input class="form-control k-item" data-ph="phWhat" value="'+esc(d.item)+'"></td>' +
+      '<td><select class="form-select k-type"><option value="item" data-i18n="typeItem"'+(m?'':' selected')+'></option><option value="money" data-i18n="typeMoney"'+(m?' selected':'')+'></option></select></td>' +
+      '<td><input type="'+(m?'number':'text')+'" min="0" class="form-control k-qty" data-ph="'+(m?'phQtyMoney':'phQtyItem')+'" value="'+esc(d.qty)+'"></td>' + del + '</tr>');
+    renumber('#kindTable'); }
+
+  function dayFromDate(){
+    var v = $('#fnDate').val();
+    $('#fnDay').val(v ? t('days')[new Date(v + 'T00:00:00').getDay()] : '');
+  }
+
+  function calc(){
+    var don = num($('#donation').val()), bills = 0, exp = 0, kc = 0, top = null, topAmt = 0, kinds = 0;
+    $('#billTable tbody tr').each(function(){
+      var a = $(this).find('.b-from').val(), b = $(this).find('.b-to').val(), c = 0;
+      if (a !== '' && b !== '' && num(b) >= num(a)) c = num(b) - num(a) + 1;
+      $(this).find('.b-cnt').text(c || '–'); bills += c; });
+    $('#expTable tbody tr').each(function(){
+      var a = num($(this).find('.e-amt').val()); exp += a;
+      if (a > topAmt) { topAmt = a; top = $(this).find('.e-name').val() || t('noName'); } });
+    $('#kindTable tbody tr').each(function(){
+      var r = $(this);
+      if (r.find('.k-type').val() === 'money') kc += num(r.find('.k-qty').val());
+      if (r.find('.k-name').val() || r.find('.k-item').val()) kinds++; });
+
+    var fb = Math.min(exp, kc), bill = exp - fb, extra = kc - fb, bal = don - bill;
+    $('#tDonation').text(money(don));
+    $('#tExpense,#expSum,#sExp').text(money(exp));
+    $('#tBhandara,#kindSum').text(money(kc));
+    $('#sBhan').text(money(fb)); $('#sBill').text(money(bill)); $('#sExtra').text(money(extra));
+    $('#extraRow').toggle(extra > 0);
+    $('#billSum').text(bills);
+    $('#tBalance').text(money(bal));
+    $('#balCard').toggleClass('neg', bal < 0);
+
+    var dt = $('#fnDate').val(), day = $('#fnDay').val();
+    var s = f('sum1', {name: $('#fnName').val() || t('fnDefault'),
+        dt: dt ? ' (' + dt.split('-').reverse().join('/') + (day ? ', ' + day : '') + ')' : '', don: money(don), exp: money(exp)}) + '\n' +
+      f('sum2', {kc: money(kc), fb: money(fb), bill: money(bill)}) + '\n' +
+      (extra > 0 ? f('sum3', {extra: money(extra)}) + '\n' : '') +
+      (bal >= 0 ? f('sumPos', {bal: money(bal)}) : f('sumNeg', {bal: money(-bal)}));
+    if (bills) s += '\n' + f('sumBills', {n: bills});
+    if (top) s += '\n' + f('sumTop', {name: top, amt: money(topAmt)});
+    s += '\n' + f('sumKinds', {n: kinds});
+    $('#summary').text(s);
+  }
+
+  function collect(){
+    return {
+      fn: {name: $('#fnName').val(), date: $('#fnDate').val()}, donation: $('#donation').val(),
+      bills: $('#billTable tbody tr').map(function(){ var r = $(this); return {book: r.find('.b-book').val(), from: r.find('.b-from').val(), to: r.find('.b-to').val()}; }).get(),
+      exp: $('#expTable tbody tr').map(function(){ var r = $(this); return {name: r.find('.e-name').val(), amt: r.find('.e-amt').val(), note: r.find('.e-note').val(), imgs: r.data('imgs') || []}; }).get(),
+      kind: $('#kindTable tbody tr').map(function(){ var r = $(this); return {name: r.find('.k-name').val(), item: r.find('.k-item').val(), type: r.find('.k-type').val(), qty: r.find('.k-qty').val()}; }).get()
+    };
+  }
+
+  function preparePrintReceipts(){
+    var root = $('#printReceipts').empty();
+    var functionName = $('#fnName').val() || t('fnDefault');
+    var date = $('#fnDate').val();
+    var functionDetails = functionName + (date ? ' · ' + date : '');
+    collect().exp.forEach(function(exp){
+      var images = Array.isArray(exp.imgs) ? exp.imgs : (exp.img ? [exp.img] : []);
+      images.forEach(function(url, index){
+        var page = $('<article class="receipt-print-page"></article>');
+        var heading = $('<header class="receipt-print-heading"></header>');
+        heading.append($('<h1></h1>').text(exp.name || t('noName')));
+        heading.append($('<p></p>').text(functionDetails));
+        if (exp.note) heading.append($('<p></p>').text(exp.note));
+        heading.append($('<p></p>').text((index + 1) + ' / ' + images.length));
+        page.append(heading);
+        page.append($('<img class="receipt-print-image" alt="Expense receipt">').attr('src', url));
+        root.append(page);
+      });
+    });
+  }
+
+  /* ---- IndexedDB: saved ledgers (with bill photos) ---- */
+  var db = null, curId = null, timer = null, loading = false;
+  function dbOpen(cb){
+    if (!window.indexedDB) { cb(); return; }
+    var rq = indexedDB.open('rangMandir', 1);
+    rq.onupgradeneeded = function(){ rq.result.createObjectStore('ledgers', {keyPath: 'id'}); };
+    rq.onsuccess = function(){ db = rq.result; cb(); };
+    rq.onerror = function(){ cb(); };
+  }
+  function dbAll(cb){
+    if (!db) return cb([]);
+    var out = [];
+    db.transaction('ledgers').objectStore('ledgers').openCursor().onsuccess = function(e){
+      var c = e.target.result;
+      if (c) { out.push(c.value); c['continue'](); }
+      else cb(out.sort(function(a, b){ return b.updated - a.updated; })); };
+  }
+  function dbGet(id, cb){ db.transaction('ledgers').objectStore('ledgers').get(id).onsuccess = function(e){ cb(e.target.result); }; }
+  function dbPut(v, cb){
+    if (!db) { if (cb) cb(false); return; }
+    var tx = db.transaction('ledgers', 'readwrite'); tx.objectStore('ledgers').put(v);
+    tx.oncomplete = function(){ if (cb) cb(true); };
+    tx.onerror = function(){ if (cb) cb(false); };
+  }
+  function refreshList(){
+    dbAll(function(all){
+      var h = curId ? '' : '<option value="">' + t('newOpt') + '</option>';
+      all.forEach(function(l){
+        var d = l.fn && l.fn.date ? ' – ' + l.fn.date.split('-').reverse().join('/') : '';
+        h += '<option value="' + l.id + '">' + ((l.fn && l.fn.name) || t('noName')).replace(/</g, '&lt;') + d + '</option>'; });
+      $('#ledgerSel').html(h).val(curId ? String(curId) : '');
+    });
+  }
+  function persist(show){
+    if (loading) return;
+    if (!curId) curId = Date.now();
+    var l = collect(); l.id = curId; l.updated = Date.now();
+    dbPut(l, function(ok){ if (!ok) alert(t('saveFail')); else { refreshList(); if (show) alert(t('saved')); } });
+  }
+  function later(){ if (loading) return; clearTimeout(timer); timer = setTimeout(function(){ persist(false); }, 500); }
+
+  function render(l){
+    loading = true;
+    $('#billTable tbody,#expTable tbody,#kindTable tbody').empty();
+    l = l || {fn: {}, bills: [], exp: [], kind: []};
+    $('#fnName').val((l.fn || {}).name || ''); $('#fnDate').val((l.fn || {}).date || ''); $('#donation').val(l.donation || '');
+    (l.bills || []).forEach(addBill); (l.exp || []).forEach(addExp); (l.kind || []).forEach(addKind);
+    if (!$('#billTable tbody tr').length) addBill();
+    if (!$('#expTable tbody tr').length) [0,1,2,3].forEach(function(i){ addExp({name: t('names')[i]}); });
+    if (!$('#kindTable tbody tr').length) addKind();
+    loading = false; applyLang();
+  }
+  function shrink(file, cb, fail){
+    var r = new FileReader();
+    r.onerror = fail;
+    r.onload = function(){
+      var im = new Image();
+      im.onerror = fail;
+      im.onload = function(){
+        var k = Math.min(1, 2400 / Math.max(im.width, im.height)), c = document.createElement('canvas');
+        c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+        var context = c.getContext('2d');
+        if (!context) { fail(); return; }
+        try {
+          context.drawImage(im, 0, 0, c.width, c.height);
+          cb(c.toDataURL('image/jpeg', 0.85));
+        } catch (e) { fail(e); }
+      };
+      im.src = r.result; };
+    r.readAsDataURL(file);
+  }
+
+  $('#addBill').on('click', function(){ addBill(); applyLang(); });
+  $('#addExp').on('click', function(){ addExp(); applyLang(); });
+  $('#addKind').on('click', function(){ addKind(); applyLang(); });
+  $(document).on('click', '.del', function(){
+    var tb = $(this).closest('table'); $(this).closest('tr').remove(); renumber(tb); calc(); later(); });
+  $(document).on('change', '.k-type', function(){
+    var m = $(this).val() === 'money', q = $(this).closest('tr').find('.k-qty');
+    q.val('').attr('type', m ? 'number' : 'text').data('ph', m ? 'phQtyMoney' : 'phQtyItem').attr('placeholder', t(m ? 'phQtyMoney' : 'phQtyItem')); });
+  $(document).on('change', '.ph-file', function(){
+    var tr = $(this).closest('tr');
+    var files = Array.prototype.slice.call(this.files || []);
+    this.value = '';
+    if (!files.length) return;
+    var current = (tr.data('imgs') || []).slice(), added = new Array(files.length);
+    var completed = 0, failed = false;
+    files.forEach(function(file, index){
+      shrink(file, function(url){ added[index] = url; complete(); }, function(){ failed = true; complete(); });
+    });
+    function complete(){
+      completed++;
+      if (completed !== files.length) return;
+      setImgs(tr, current.concat(added.filter(Boolean)));
+      later();
+      if (failed) alert('One or more selected photos could not be processed. Please choose valid image files and try again.');
+    }
+  });
+  $(document).on('click', '.ph-del', function(){
+    var tr = $(this).closest('tr'), imgs = (tr.data('imgs') || []).slice();
+    imgs.splice(Number($(this).data('index')), 1);
+    setImgs(tr, imgs); later();
+  });
+  $(document).on('click', '.thumb', function(){
+    var tr = $(this).closest('tr');
+    $('#lbImg').attr('src', $(this).attr('src')); $('#lbNote').text((tr.find('.e-name').val() || '') + (tr.find('.e-note').val() ? '\n' + tr.find('.e-note').val() : ''));
+    $('#lightbox').addClass('on'); });
+  $('#lightbox').on('click', function(e){ if (e.target.tagName !== 'IMG') $(this).removeClass('on'); });
+  $(document).on('input change', 'input:not(.ph-file), select:not(#ledgerSel):not(#langSel)', function(){
+    if (this.id === 'fnDate') dayFromDate(); calc(); later(); });
+  $('#langSel').on('change', function(){
+    lang = $(this).val(); try { localStorage.setItem(LKEY, lang); } catch (e) {} applyLang(); });
+  $('#ledgerSel').on('change', function(){
+    var id = $(this).val();
+    if (!id) { curId = null; render(null); refreshList(); return; }
+    dbGet(Number(id), function(l){ curId = l.id; render(l); }); });
+  $('#newLedger').on('click', function(){ curId = null; render(null); refreshList(); window.scrollTo(0, 0); });
+  $('#delLedger').on('click', function(){
+    if (!curId || !confirm(t('confirmDel'))) return;
+    var tx = db.transaction('ledgers', 'readwrite'); tx.objectStore('ledgers')['delete'](curId);
+    tx.oncomplete = function(){ curId = null;
+      dbAll(function(all){ if (all.length) { curId = all[0].id; render(all[0]); } else render(null); refreshList(); }); }; });
+  $('#saveBtn').on('click', function(){ persist(true); });
+  window.addEventListener('beforeprint', preparePrintReceipts);
+
+  dbOpen(function(){
+    dbAll(function(all){ if (all.length) { curId = all[0].id; render(all[0]); } else render(null); refreshList(); });
+  });
+});
+</script>
+</body>
+</html>
